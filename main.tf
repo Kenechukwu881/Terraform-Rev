@@ -12,8 +12,8 @@
 # The `bucket_name` variable is defined in the `variable.tf` file.
 resource "aws_s3_bucket" "data_team_bucket" {
 
-  bucket = var.bucket_name   
-  acl    = "private"  
+  bucket = var.bucket_name
+  acl    = "private"
   server_side_encryption_configuration {
         rule {
             apply_server_side_encryption_by_default {
@@ -26,12 +26,10 @@ resource "aws_s3_bucket" "data_team_bucket" {
   tags = {
     Name        = "My bucket"
     Environment = "Dev"
-    Terraform = true    
+    Terraform = true
   }
-   
 
 }
-
 
 # creating the kms key
 resource "aws_kms_key" "mykey" {
@@ -57,10 +55,10 @@ data "aws_iam_policy_document" "key_policy" {
    effect = "Allow"
    principals {
        type ="AWS"
-       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"] 
+       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
    }
    actions = ["kms:*"]
    resources = ["*"]
  }
-   
+
 }
